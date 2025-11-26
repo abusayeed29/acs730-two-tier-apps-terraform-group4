@@ -26,9 +26,9 @@ max_size = 4
 # For bastion – tighten this in real life
 allowed_ssh_cidr = "0.0.0.0/0"
 
-image_bucket_name = "your-web-image-bucket-name"
+image_bucket_name = "group4-dev-web-images"
 image_key         = "flower.jpg"
 
 # Example Amazon Linux 2 AMI in us-east-1  (double-check!)
 # ami-0c02fb55956c7d316 is common, but you should verify in console.
-ami_id = "ami-0c02fb55956c7d316"
+ami_id = "ami-0fa3fe0fa7920f68e"

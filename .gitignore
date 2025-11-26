@@ -1,4 +1,17 @@
 ### AL ###
+.terraform/
+*.zip
+*.exe
+*.tfstate
+*.tfstate.backup
+crash.log
+
+**/.terraform/
+**/.terraform.lock.hcl
+**/terraform.tfstate
+**/terraform.tfstate.backup
+
+
 #Template for AL projects for Dynamics 365 Business Central
 #launch.json folder
 .vscode/
