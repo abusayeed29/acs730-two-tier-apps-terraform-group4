@@ -79,6 +79,7 @@ resource "aws_instance" "bastion" {
   subnet_id                   = module.networking.public_sn2_id
   vpc_security_group_ids      = [module.security.bastion_sg_id]
   associate_public_ip_address = true
+  key_name = "vockey"
 
   tags = {
     Name = "${local.name_prefix}-Bastion"
