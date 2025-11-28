@@ -16,12 +16,13 @@ resource "aws_lb_target_group" "this" {
   vpc_id   = var.vpc_id
 
   health_check {
-    path                = "/"
-    matcher             = "200"
-    healthy_threshold   = 3
-    unhealthy_threshold = 3
     interval            = 30
+    path                = "/"
+    port                = "traffic-port"
+    healthy_threshold   = 2
+    unhealthy_threshold = 2
     timeout             = 5
+    matcher             = "200"
   }
 
   tags = {
