@@ -51,7 +51,7 @@ resource "aws_subnet" "public_sn2" {
   }
 }
 
-# Private_SN2
+# Private_SN2 s
 resource "aws_subnet" "private_sn2" {
   vpc_id            = aws_vpc.this.id
   cidr_block        = var.private_sn2_cidr
