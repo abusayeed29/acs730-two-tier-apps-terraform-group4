@@ -7,7 +7,7 @@ env_name     = "Dev"
 region       = "us-east-1"
 
 # From your diagram
-vpc_cidr         = "192.168.0.0/16"
+vpc_cidr = "192.168.0.0/16"
 
 public_sn1_cidr  = "192.168.1.0/24"
 private_sn1_cidr = "192.168.11.0/24"

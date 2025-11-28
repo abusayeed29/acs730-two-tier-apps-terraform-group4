@@ -50,14 +50,14 @@ module "alb" {
 # 5) Launch template for web instances
 module "launch_template" {
   source = "../../modules/launch-template"
-
   name_prefix          = local.name_prefix
   ami_id               = var.ami_id
   instance_type        = var.web_instance_type
   web_sg_id            = module.security.web_sg_id
-  iam_instance_profile = module.iam.instance_profile_name
   image_bucket_name    = var.image_bucket_name
   image_key            = var.image_key
+  environment          = var.env_name
+  key_name             = "vockey"
 }
 
 # 6) Auto Scaling Group (web tier in private subnets)
