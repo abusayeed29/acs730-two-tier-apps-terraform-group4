@@ -1,7 +1,7 @@
 # acs730-two-tier-apps-terraform-group4
 # 📘 Two-Tier Web Application Automation with Terraform  
 **ACS730 – Final Project**  
-**Group Name:** Group1  
+**Group Name:** Group4
 **Environments:** Dev • Staging • Prod  
 
 ---
