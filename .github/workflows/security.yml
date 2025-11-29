@@ -1,0 +1,68 @@
+name: Terraform Security Scan
+
+on:
+  push:
+    branches: [staging, dev]
+  pull_request:
+    branches: [prod]
+
+jobs:
+  terraform-security:
+    name: Terraform Security Scan
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform-version: latest
+
+      - name: Install TFLint
+        run: |
+          curl -sSL https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+        env:
+          TFLINT_VERSION: latest
+
+      - name: Initialize and run TFLint
+        run: |
+          tflint --init
+          tflint --recursive --color
+        env:
+          TFLINT_LOG: debug
+
+      - name: Install Trivy
+        uses: aquasecurity/trivy-action@master
+        with:
+          trivy-version: latest
+
+      - name: Run Trivy filesystem scan
+        run: |
+          trivy fs \
+            --exit-code 1 \
+            --severity HIGH,CRITICAL \
+            --format sarif \
+            --output trivy-results.sarif \
+            .
+          
+      - name: Upload Trivy results
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: trivy-results.sarif
+
+      - name: Terraform security scan summary
+        if: always()
+        run: |
+          echo "## Security Scan Summary" >> $GITHUB_STEP_SUMMARY
+          echo "TFLint completed - Terraform code analysis" >> $GITHUB_STEP_SUMMARY
+          echo "Trivy completed - Vulnerability scanning" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Scanned branches:** staging, dev (on push), prod (on PR)" >> $GITHUB_STEP_SUMMARY
