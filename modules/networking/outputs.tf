@@ -9,6 +9,8 @@ output "public_subnet_ids" {
   ]
 }
 
+# this is a demo 
+
 output "private_subnet_ids" {
   value = [
     aws_subnet.private_sn1.id,
