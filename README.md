@@ -1,12 +1,11 @@
-# acs730-two-tier-apps-terraform-group4
-# 📘 Two-Tier Web Application Automation with Terraform  
+# Two-Tier Web Application Automation with Terraform  
 **ACS730 – Final Project**  
 **Group Name:** Group4
 **Environments:** Dev • Staging • Prod  
 
 ---
 
-## 📌 1. Project Overview
+## 1. Project Overview
 
 This project automates the deployment of a high-availability, two-tier web application using **Terraform**, **AWS Auto Scaling**, **Application Load Balancer (ALB)**, **custom VPC networking**, and **S3-based static content**.
 
@@ -24,7 +23,7 @@ The solution includes:
 
 ---
 
-## 🏗 2. Architecture Diagram
+##  2. Architecture Diagram
 
 ### High-Level Structure
 ```
@@ -45,22 +44,22 @@ Components:
 
 ---
 
-## 🌐 3. Traffic Flows Explanation
+##  3. Traffic Flows Explanation
 
-### 🔹 Flow 1: End User → ALB → Private EC2
+###  Flow 1: End User → ALB → Private EC2
 1. User enters the ALB DNS name in a browser.
 2. ALB receives HTTP request on port 80.
 3. ALB forwards traffic to the Target Group.
 4. Target Group routes to a healthy EC2 instance.
 5. Response returned to user.
 
-### 🔹 Flow 2: EC2 → S3 Bucket
+###  Flow 2: EC2 → S3 Bucket
 EC2 retrieves image during boot:
 ```
 aws s3 cp s3://<bucket>/flower.jpg /var/www/html/
 ```
 
-### 🔹 Flow 3: DevOps → GitHub → AWS
+###  Flow 3: DevOps → GitHub → AWS
 - Developer pushes changes
 - GitHub Actions:
   - Runs **TFLint**
@@ -69,10 +68,10 @@ aws s3 cp s3://<bucket>/flower.jpg /var/www/html/
 
 ---
 
-## 🗂 4. Repository Structure
+##  4. Repository Structure
 
 ```
-acs730-final-project-group1/
+acs730-final-project-group4/
 ├── modules/
 │   ├── networking/
 │   ├── alb/
@@ -92,13 +91,13 @@ Each environment contains:
 
 ---
 
-## 🌱 5. Environments
+##  5. Environments
 
 ### Dev
 - VPC: `10.100.0.0/16`
 - Instance type: `t3.micro`
 - ASG: min 2, max 4
-- S3 bucket: `group1-dev-web-images`
+- S3 bucket: `group4-dev-web-images`
 
 ### Staging
 - VPC: `10.200.0.0/16`
@@ -112,7 +111,7 @@ Each environment contains:
 
 ---
 
-## ⚙️ 6. Features Implemented
+##  6. Features Implemented
 
 ✔ Custom VPC with subnets  
 ✔ NAT Gateway  
@@ -127,11 +126,11 @@ Each environment contains:
 
 ---
 
-## 🚀 7. Deployment Steps
+##  7. Deployment Steps
 
 ### Clone
 ```bash
-git clone https://github.com/<user>/acs730-final-project-group1.git
+git clone https://github.com/abusayeed29/acs730-two-tier-apps-terraform-group4.git
 cd envs/dev
 ```
 
@@ -157,7 +156,7 @@ terraform output alb_dns_name
 
 ---
 
-## 🔍 8. Validation & Testing
+##  8. Validation & Testing
 
 ### ALB
 - AWS Console → Target Groups → **Healthy** instances
@@ -180,7 +179,7 @@ Refresh ALB DNS multiple times → responses should alternate across instances.
 
 ---
 
-## 🔐 9. GitHub Actions
+##  9. GitHub Actions
 
 Workflow:  
 `.github/workflows/terraform-security.yml`
@@ -195,7 +194,7 @@ Triggered on:
 
 ---
 
-## 📸 10. Required Screenshots (Add these in your report)
+##  10. Required Screenshots (Add these in your report)
 
 - VPC overview  
 - Subnets list  
@@ -209,7 +208,7 @@ Triggered on:
 
 ---
 
-## 🧩 11. Challenges & Learning
+##  11. Challenges & Learning
 
 Some example challenges:
 - Fixing ALB health checks  
@@ -220,7 +219,7 @@ Some example challenges:
 
 ---
 
-## 👥 12. Contributors
+##  12. Contributors
 | Name               | Seneca ID  | GitHub        |
 |-------------------|------------|---------------|
 | Md Abu Sayeed     | 128626249  | abusayeed29   |
@@ -231,7 +230,7 @@ Some example challenges:
 
 ---
 
-## 📜 13. License
+##  13. License
 
 Created for **ACS730 – Cloud Automation**, Seneca Polytechnic.
 
