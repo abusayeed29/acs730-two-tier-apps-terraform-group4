@@ -6,5 +6,3 @@ terraform {
   }
 }
 
-
-#Shadhana testing
