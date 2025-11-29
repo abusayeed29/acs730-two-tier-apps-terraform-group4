@@ -1,3 +1,4 @@
+# this is test hello dhruv here
 resource "aws_vpc" "this" {
   cidr_block           = var.vpc_cidr
   enable_dns_support   = true
@@ -15,6 +16,7 @@ resource "aws_internet_gateway" "igw" {
     Name = "${var.name_prefix}-IGW"
   }
 }
+
 
 # Public_SN1
 resource "aws_subnet" "public_sn1" {
