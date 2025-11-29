@@ -4,35 +4,58 @@
 
 locals {
   user_data = <<-EOF
-    #!/bin/bash
-    yum update -y
-    yum install -y httpd awscli
-    systemctl enable httpd
-    systemctl start httpd
+#!/bin/bash
 
-    # Copy image from S3 (private bucket)
-    aws s3 cp s3://${var.image_bucket_name}/flower.jpg /var/www/html/flower.jpg
+yum update -y
+yum install -y httpd awscli
+systemctl enable httpd
+systemctl start httpd
 
-    # Create index.html that displays the image
-    cat <<HTML > /var/www/html/index.html
-    <html>
-    <head><title>${var.name_prefix} Web</title></head>
-    <body style="text-align:center;">
-      <h1>${var.name_prefix} Web Tier</h1>
-      <p>Served from EC2 AutoScaling Group</p>
-      <img src="flower.jpg" style="max-width:600px;">
-    </body>
-    </html>
+cat << 'HTML' > /var/www/html/index.html
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="shortcut icon" href="#">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Welcome to flower template</title>
+</head>
+<style media="screen">
+  body {
+          background-color: #818181ff;
+          font-size: 50pt;
+          color: white;
+    }
+</style>
+<body>
+    <div class="container-fluid">
+      <div id="one" class="text-center">
+        <span>"Whats my url?"</span>
+      </div>
+      <div class="row">
+        <div class="col-md-6 text-center">
+          <a href="#"><img src="https://group4-dev-web-image.s3.us-east-1.amazonaws.com/flower.jpg" width="400" height="400" alt="..." class="img-rounded"></a>
+        </div>
+        <div class="col-md-6 text-center">
+          <a href="#"><img src="https://group4-dev-web-image.s3.us-east-1.amazonaws.com/flower2.jpg" width="400" height="400" alt="..." class="img-rounded"></a>
+        </div>
+      </div>
+    </div>
+<script>
+    $('#one span').text(window.location.href);
+</script>
+</body>
+</html>
 HTML
-  EOF
+EOF
 }
 
 resource "aws_launch_template" "this" {
   name_prefix   = "${var.name_prefix}-WebLT-"
   image_id      = var.ami_id
   instance_type = var.instance_type
-
-  # REQUIRED — EC2 needs permission to read from private S3 bucket
 
   # REQUIRED — enables SSH if needed
   key_name = var.key_name
