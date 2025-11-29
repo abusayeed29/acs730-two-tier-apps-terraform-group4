@@ -1,3 +1,4 @@
+#changes by amir
 # ALB SG
 resource "aws_security_group" "alb_sg" {
   name        = "${var.name_prefix}-ALB-SG"
