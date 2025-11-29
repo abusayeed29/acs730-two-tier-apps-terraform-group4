@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #####################################
 # env/dev/main.tf
 #####################################
@@ -85,3 +86,6 @@ resource "aws_instance" "bastion" {
     Name = "${local.name_prefix}-Bastion"
   }
 }
+=======
+#no change
+>>>>>>> e26ce97ba8d25f4c3fe798f03784f4c842f8004f
